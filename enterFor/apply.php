@@ -39,17 +39,19 @@ $openid = $array['openid'];//输出openid  微信用户唯一标示
 
 //var_dump($output);
 
-$url2="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=微信公众号ID&secret=微信后台有";
-$output2= https_request($url2);
-$output2 = json_decode($output2);
-$array2 = get_object_vars($output2);//转换成数组
-$access_token= $array2['access_token'];
+//获取普通access_token   用来获取接下来的 $subscribe
+/*微信wiki有注明 网页授权用的 access_token 与普通access_token 不同，请求的API不同*/
+$Purl="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=微信公众号ID&secret=微信后台有";
+$pOutput= https_request($Purl);
+$pOutput = json_decode($pOutput);
+$pArray = get_object_vars($pOutput);//转换成数组
+$access_token= $pArray['access_token'];
 
-$url3="https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
-$output3= https_request($url3);
-$output3 = json_decode($output3);
-$array3 = get_object_vars($output3);//转换成数组
-$subscribe= $array3['subscribe'];//输出subscribe 根据其值判断是否关注了公众号  
+$infoUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
+$infoOutput= https_request($infoUrl);
+$infoOutput = json_decode($infoOutput);
+$infoArray = get_object_vars($infoOutput);//转换成数组
+$subscribe= $infoArray ['subscribe'];//输出subscribe 根据其值判断是否关注了公众号  
 
 //查询人数，达到多少时，停止报名
 $res=mysqli_query($con,"select count(*) from wx_ygp_users " );
