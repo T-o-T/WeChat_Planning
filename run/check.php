@@ -130,7 +130,7 @@
 			}
 		}
 		else{
-			header("Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx46fdb9fe3fd99085&redirect_uri=http://www.gaojiajun.cn/run/index.php&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+			header("Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://www.gaojiajun.cn/run/index.php&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
 		}
 	}
 ?>
